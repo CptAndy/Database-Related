@@ -334,5 +334,5 @@ JOIN status s ON t.status_id = s.status_id ORDER BY tracking_id ASC;
 
 System cls
 show tables;
-SELECT * FROM trackingView \G;
+SELECT * FROM trackingView \G
 
