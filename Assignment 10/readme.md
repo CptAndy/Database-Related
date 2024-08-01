@@ -75,10 +75,3 @@ To complete this assignment, submit the following three files to Webcourses:
 
 ---
 
-**Figures:**
-- Figure 1: Verify user `root` logged in.
-- Figure 2: Verify user `admin` created.
-- Figure 3: Verify user `admin` permissions.
-- Figure 4: Verify user `admin` logged in.
-- Figure 5: Verify user `admin` denied `DELETE` permissions.
-- Figure 6: ER Diagram.
