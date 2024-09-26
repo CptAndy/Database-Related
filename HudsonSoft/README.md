@@ -73,8 +73,6 @@ Stores details of customer returns.
 - `date_purchased` (DATE): Date of the original purchase.
 - `date_returned` (DATE): Date of the return.
 - `return_type_id` (INT, Foreign Key to `Returns_type`): Type of return.
-- `type_id` (INT, Foreign Key to `Product_type`): Type of product returned.
-
 **Constraints:**
 - `CHK_returned_quantity`: Ensures returned quantity is non-negative.
 
