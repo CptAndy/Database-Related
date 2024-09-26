@@ -93,7 +93,7 @@ BEGIN
     SET NEW.date_returned = CURDATE();
 END //
 DELIMITER ;
-
+```
 
 ### 2. `update_amount`
 Automatically updates the amount spent, the number of products owned by a customer, and adjusts product stock when a new purchase is made.
@@ -125,7 +125,7 @@ BEGIN
     WHERE product_id = NEW.product_id;
 END //
 DELIMITER ;
-
+```
 
 ### 3. `return_update`
 Automatically updates the customer's account, including refunds and product ownership details, when a return is made.
@@ -172,7 +172,7 @@ SET product_returned = product_returned + NEW.returned_quantity
 WHERE customer_id = NEW.customer_id;
 END //
 DELIMITER ;
-
+```
 **Example Usage**
 
 -- Example usage: INSERT INTO `Product_type` (`prod_type_name`) VALUES
