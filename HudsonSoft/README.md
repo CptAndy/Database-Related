@@ -85,7 +85,9 @@ Automatically sets the return date (`date_returned`) to the current date for any
 
 **Trigger Definition:**
 ```sql
+
 DELIMITER //
+-- curdate() was not cooperating so a trigger was recommended
 CREATE TRIGGER retrieve_date
 BEFORE INSERT ON `Returns`
 FOR EACH ROW
@@ -101,28 +103,42 @@ Automatically updates the amount spent, the number of products owned by a custom
 **Trigger Definition:**
 ```sql
 DELIMITER //
-CREATE TRIGGER update_amount
-AFTER INSERT ON `Purchases`
-FOR EACH ROW
+-- CREATE the trigger
+create trigger update_amount 
+-- After inserting
+after insert   
+-- Inside the Purchases table
+on `Purchases`
+-- For each row inserted
+for each row
+-- Begin the update_amount process
 BEGIN
-    DECLARE price_of_product DECIMAL(10,2);
-    DECLARE sales_tax_rate DECIMAL(10,2) DEFAULT 0.07;
-    DECLARE total_cost_of_product DECIMAL(10,2);
-    
-    SELECT price INTO price_of_product 
+-- Declare the variable
+DECLARE price_of_product DECIMAL (10,2);
+DECLARE sales_tax_rate DECIMAL (10,2);
+DECLARE sales_tax_amount DECIMAL (10,2);
+DECLARE total_cost_of_product DECIMAL (10,2);
+
+SET sales_tax_rate = 0.07;
+ -- PRODUCT PRICE into price_of_product
+SELECT price INTO price_of_product 
     FROM Product
     WHERE product_id = NEW.product_id;
+ -- calculating the amount
+ SET total_cost_of_product = price_of_product * NEW.quantity;
+ SET sales_tax_amount = total_cost_of_product * sales_tax_rate;
+ SET total_cost_of_product = total_cost_of_product + sales_tax_amount;
+-- Update amount spent and the quantity of product the customer owns
+UPDATE Customer
+SET amount_spent = amount_spent + total_cost_of_product,
+product_owned = product_owned + NEW.quantity
+WHERE customer_id = NEW.customer_id;
 
-    SET total_cost_of_product = price_of_product * NEW.quantity * (1 + sales_tax_rate);
-    
-    UPDATE Customer
-    SET amount_spent = amount_spent + total_cost_of_product,
-        product_owned = product_owned + NEW.quantity
-    WHERE customer_id = NEW.customer_id;
+-- update inventory
+UPDATE Product
+SET stock_quantity = stock_quantity - NEW.quantity
+ WHERE product_id = NEW.product_id;
 
-    UPDATE Product
-    SET stock_quantity = stock_quantity - NEW.quantity
-    WHERE product_id = NEW.product_id;
 END //
 DELIMITER ;
 ```
@@ -173,14 +189,85 @@ WHERE customer_id = NEW.customer_id;
 END //
 DELIMITER ;
 ```
-**Example Usage**
+## Views
 
--- Example usage: INSERT INTO `Product_type` (`prod_type_name`) VALUES
-('Digital'), ('Physical');
+### 1. `V_purchase_LOG`
+This view provides a detailed log of all purchases, showing invoice details, customer information, product details, and the total cost of each purchase, including taxes.
 
--- Example usage: Insert into product
+**View Definition:**
+```sql
+CREATE VIEW V_purchase_LOG AS 
+SELECT p.purchases_id AS "Invoice No.",  
+p.purchases_date AS "Date of Purchase", 
+c.customer_id AS "Account No.",
+CONCAT(c.first_name,', ',c.last_name) AS "Name", 
+pr.product_id AS "Sales Number",
+pr.product_name AS "Product Name", 
+pt.prod_type_name AS "Product Variaition",
+p.quantity AS "Quantity", 
+(pr.price * p.quantity) AS "Subtotal",
+ROUND(((pr.price * 0.07) + pr.price),2) * p.quantity AS "Total"
+FROM Purchases p
+JOIN Customer c ON p.customer_id = c.customer_id
+JOIN Product pr ON p.product_id = pr.product_id
+JOIN product_type pt ON p.type_id = pt.prod_type_id
+ORDER BY p.purchases_id;
+```
+
+### 2. `v_return_LOG`
+
+**View Definition:**
+```sql
+CREATE VIEW V_return_LOG AS 
+SELECT r.returns_id AS "Return Invoice No.",  
+r.date_returned AS "Date Returned",
+pu.purchases_date AS "Date of Purchase",
+c.customer_id AS "Acctount No.",
+CONCAT(c.first_name,' ',c.last_name) AS "Name",
+p.product_id AS "Sales Number",
+p.product_name AS "Product Name",
+pt.prod_type_name AS "Product Variation",  -- You can still retrieve the product type from the Product table
+r.returned_quantity AS "Returned Quantity",
+rt.returns_type_name AS "Reasoning",
+(p.price * returned_quantity) AS "Subtotal",
+ROUND(((p.price * 0.07) + p.price),2) * r.returned_quantity AS  "Total Refund"
+FROM returns r
+JOIN Customer c ON c.customer_id = r.customer_id 
+JOIN Product p ON p.product_id = r.product_id
+JOIN Product_type pt ON pt.prod_type_id = p.type_id  -- Join through the Product table
+JOIN Returns_type rt ON rt.returns_type_id = r.return_type_id
+JOIN Purchases pu ON pu.purchases_id = r.purchases_id
+ORDER BY r.returns_id;
+```
+
+## Demonstration
+
+### Example
+
+```sql
+-- Example usage: The type of product
+INSERT INTO `Product_type` (`prod_type_name`) VALUES
+('Magic'),
+('Gasoline'),
+('Electricity');
+
+-- Example usage: Reason for return
+INSERT INTO `Returns_type` (`Returns_type_name`) VALUES
+('Defective'),
+('Customer Changed Mind'),
+('No Longer Needed');
+
+-- Example usage: Insert a product
 INSERT INTO `Product` (`product_name`, `sales_number`, `price`, `stock_quantity`, `type_id`) VALUES
-('Vintendo Slay Station', 'VSS01234', 99.99, 500, 2);
+('Elder Wand', 'WSTF0001', 349.99, 0, 1);
+
+-- EXAMPLE PURPOSES FOR NOW CAN REMOVE THIS IN OFFICIAL AS WELL AS HERE TO PUT IN ANY QUANTITY
+UPDATE Product
+SET stock_quantity = 500;
+
+-- Example usage: Insert into customer
+INSERT INTO customer (first_name, last_name, email, phone, state, city) VALUES
+('Alice', 'Smith', 'alices01@example.com', '212-555-1234', 'NY', 'New York'),
 
 -- Example usage: Insert into purchases
 INSERT INTO Purchases (customer_id, product_id, type_id, quantity, purchases_date) 
@@ -190,7 +277,15 @@ VALUES (1, 1, 1, 5, '2024-09-26');
 INSERT INTO Returns (purchases_id, customer_id, product_id, returned_quantity, date_purchased, return_type_id, type_id)
 VALUES (1, 1, 1, 1, '2024-09-26', 1, 1);
 
--- View customer's updated amount spent
-SELECT first_name, last_name, amount_spent FROM Customer WHERE customer_id = 1;
+-- View customer's
+SELECT * FROM Customer;
+-- View returns
+SELECT * FROM returns;
 
+-- More in-depth look with descriptions
+SELECT * FROM v_purchase_log;
+SELECT * FROM v_return_log;
 
+```
+## NOTES
+-    This was done using MySQL workbench.
