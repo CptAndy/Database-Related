@@ -265,15 +265,14 @@ SET stock_quantity = 500;
 
 -- Example usage: Insert into customer
 INSERT INTO customer (first_name, last_name, email, phone, state, city) VALUES
-('Alice', 'Smith', 'alices01@example.com', '212-555-1234', 'NY', 'New York'),
+('Alice', 'Smith', 'alices01@example.com', '212-555-1234', 'NY', 'New York');
 
 -- Example usage: Insert into purchases
 INSERT INTO Purchases (customer_id, product_id, type_id, quantity, purchases_date) 
 VALUES (1, 1, 1, 5, '2024-09-26');
 
 -- Example usage: Return a product
-INSERT INTO Returns (purchases_id, customer_id, product_id, returned_quantity, date_purchased, return_type_id, type_id)
-VALUES (1, 1, 1, 1, '2024-09-26', 1, 1);
+INSERT INTO `Returns` (`purchases_id`, `customer_id`, `product_id`, `returned_quantity`, `date_purchased`, `return_type_id`) VALUES (1, 1, 1, 2, (SELECT `purchases_date` FROM `Purchases` WHERE `purchases_id` = 1), 1);
 
 -- View customer's
 SELECT * FROM Customer;
