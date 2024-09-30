@@ -1,5 +1,6 @@
 # SQLRelated
-Showcasing what I learned throughout my time in College/University
+Showcasing what I learned throughout my time in College/University.
+This also includes some personal projects I worked on as well for practice purposes.
 
 **Include:**
 - MySQL Database design principles
