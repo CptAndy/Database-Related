@@ -112,4 +112,15 @@ ORDER BY
 s.status_id DESC; 
 ```
 #
+# Usage
+
+1. Import the schema into MySQL Workbench.
+2. Run the queries to update tracking data.
+3. Generate reports to track project status and priorities.
+
+# Notes
+
+Ensure foreign key constraints remain intact when modifying data.
+Adjust queries as needed based on project requirements
+#
 ##### Author: Anderson Mota
