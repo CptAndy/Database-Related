@@ -119,8 +119,7 @@ s.status_id DESC;
 3. Generate reports to track project status and priorities.
 
 # Notes
-
-Ensure foreign key constraints remain intact when modifying data.
-Adjust queries as needed based on project requirements
+Ensure foreign key constraints remain intact when modifying data.<br/> 
+Adjust queries as needed based on project requirements.
 #
 ##### Author: Anderson Mota
