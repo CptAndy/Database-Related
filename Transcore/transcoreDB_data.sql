@@ -627,7 +627,7 @@ SET
     WHERE 
       pri_num = 'p4'
   );
--------------------------- SET STATUS --------------------------
+/*-------------------------- SET STATUS --------------------------*/
 -- Begin as not started
 UPDATE 
   tracking 
@@ -713,7 +713,7 @@ WHERE
     WHERE 
       req_desc LIKE '%An icon%'
   );
--------------------------- SET Priority --------------------------
+/*-------------------------- SET Priority --------------------------*/
 UPDATE 
   tracking 
 SET 
@@ -784,7 +784,7 @@ WHERE
       req_desc LIKE '%An icon%'
   );
   
--------------------------- VIEW CREATION --------------------------
+/*-------------------------- VIEW CREATION --------------------------*/
 CREATE VIEW V_tracking_log AS
 SELECT 
   t.track_id AS "Tracking No.", 
