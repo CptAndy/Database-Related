@@ -70,3 +70,46 @@ UPDATE tracking
 SET pri_id = (SELECT pri_id FROM priority WHERE pri_num = 'p3') 
 WHERE track_id IN (SELECT req_id FROM requirements WHERE req_desc LIKE '%An icon%');
 ```
+#
+
+# Views
+The tables here keep track of the data in a way thats easty to understand for the user.
+#### tracking log
+```sql
+-- Keeps track of the different tasks and presents them in a readable format
+CREATE VIEW V_tracking_log AS
+SELECT 
+  t.track_id AS "Tracking No.", 
+  r.req_num AS "Section", 
+  r.req_desc AS "Description", 
+  s.status_desc AS "Status", 
+  p.pri_text AS "Priority" 
+FROM 
+  tracking t 
+  JOIN requirements r ON t.req_id = r.req_id 
+  JOIN priority p ON t.pri_id = p.pri_id 
+  JOIN status s ON t.status_id = s.status_id 
+ORDER BY 
+  track_id ASC;
+```
+#### progress log
+```sql
+-- This takes the percentages of the different statuses 
+-- Displays it in readable way
+
+CREATE VIEW v_progress_log AS
+SELECT 
+  s.status_desc AS "Status", 
+  COUNT(s.status_desc) AS "Current Progress", 
+  ROUND(
+    COUNT(s.status_desc)/ 196 * 100, 2) AS "Current Progress %" 
+FROM 
+  status s 
+  JOIN tracking t ON s.status_id = t.status_id 
+GROUP BY 
+  s.status_desc -- WITH ROLLUP to ensure data is accurate 
+ORDER BY
+s.status_id DESC; 
+```
+#
+##### Author: Anderson Mota
