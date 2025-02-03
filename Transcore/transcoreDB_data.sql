@@ -1,4 +1,5 @@
- USE transcoredb;
+-- Author: Anderson Mota
+USE transcoredb;
 
 INSERT INTO priority
             (pri_num,
