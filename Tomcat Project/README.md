@@ -2,7 +2,7 @@
 
 ## Overview
 
-This project aims to create a distributed three-tier web-based application using servlets and JSP technology. The application runs on a Tomcat server and connects to a MySQL database using JDBC. It is designed to manage a suppliers/parts/jobs/shipments database, allowing different user roles to interact with the data effectively.
+This project aims to create a distributed three-tier web-based application using servlets and JSP technology. The application runs on a Tomcat server and connects to a MySQL database using JDBC. It is designed to manage a suppliers/parts/jobs/shipments database, allowing different users to interact with the data effectively.
 
 ## Project Objectives
 
