@@ -1,4 +1,3 @@
-# MySQL Database for User Interface Requirements
 
 ## Overview
 The TransCore project involves the design and implementation of a SQL database to support a traffic control system. This database includes tables for managing requirements, priority, status, and tracking of various functionalities related to the system.
