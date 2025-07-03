@@ -284,5 +284,7 @@ SELECT * FROM v_purchase_log;
 SELECT * FROM v_return_log;
 
 ```
+## Screenshots
+
 ## NOTES
 -    This was done using MySQL workbench.
