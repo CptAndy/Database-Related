@@ -34,12 +34,5 @@ The GUI will include:
 
 The application will connect to an operations log database to maintain a running tally of user queries and updates.
 
-## High-Level Timeline
-1. Ensure MySQL server is operational.
-2. Create and populate the necessary databases.
-3. Set up user accounts and permissions.
-4. Develop the main application and the specialized accountant application.
-5. Implement logging for user commands.
-
 ## Conclusion
 This project serves as a practical application of Java, JDBC, and MySQL integration, highlighting skills in database management, GUI development, and application security. Through the successful implementation of this project, I have enhanced my understanding of client-server architectures and database interactions.
