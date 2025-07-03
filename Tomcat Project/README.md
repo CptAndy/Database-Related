@@ -72,6 +72,41 @@ Project-3/
 4. **Run the permissions script** `ClientCreationPermissionsScript.sql` to set user roles.
 5. **Deploy the web application** to the Tomcat server and access it via a web browser.
 
+## Screenshots
+<p>Login Screen</p>
+
+![Alt text](https://github.com/CptAndy/Database-Related/blob/main/Tomcat%20Project/loginscreen.png?raw=true)
+
+
+<br>
+
+<p>Invalid Credentials</p>
+
+![Alt text](https://github.com/CptAndy/Database-Related/blob/main/Tomcat%20Project/invalidLogin.png?raw=true)
+
+
+<br>
+<p>Root user UI query</p>
+
+![Alt text](https://github.com/CptAndy/Database-Related/blob/main/Tomcat%20Project/rootuserUI.png?raw=true)
+
+
+<br>
+<p>Client UI showing permission denied for admin queries</p>
+
+![Alt text](https://github.com/CptAndy/Database-Related/blob/main/Tomcat%20Project/clientUI.png?raw=true)
+
+<br>
+<p>Data Entry UI</p>
+
+![Alt text](https://github.com/CptAndy/Database-Related/blob/main/Tomcat%20Project/dataEntryUI1-2.png?raw=true)
+![Alt text](https://github.com/CptAndy/Database-Related/blob/main/Tomcat%20Project/dataEntryUI2-2.png?raw=true)
+
+<br>
+<p>The Accountant UI</p>
+
+![Alt text](https://github.com/CptAndy/Database-Related/blob/main/Tomcat%20Project/theaccountantUI.png?raw=true)
+<br>
 
 ## Conclusion
 
