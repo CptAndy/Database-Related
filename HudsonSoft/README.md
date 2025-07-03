@@ -285,6 +285,35 @@ SELECT * FROM v_return_log;
 
 ```
 ## Screenshots
+<p>Customer list where amount_spent > 0</p>
 
+![Alt text](https://github.com/CptAndy/Database-Related/blob/main/HudsonSoft/customer.png?raw=true)
+<p>Product list</p>
+
+![Alt text](https://github.com/CptAndy/Database-Related/blob/main/HudsonSoft/product.png?raw=true)
+
+<p>Types of products</p>
+
+![Alt text](https://github.com/CptAndy/Database-Related/blob/main/HudsonSoft/product_type.png?raw=true)
+
+<p>Return reason</p>
+
+![Alt_text](https://github.com/CptAndy/Database-Related/blob/main/HudsonSoft/return_type.png?raw=true)
+
+<p>Purchases table handling IDs for the view log</p>
+
+![Alt text](https://github.com/CptAndy/Database-Related/blob/main/HudsonSoft/purchasesRelational.png?raw=true)
+
+<p>Return table handling the IDs for the view log</p>
+
+![Alt text](https://github.com/CptAndy/Database-Related/blob/main/HudsonSoft/returnsRelational.png?raw=true)
+
+<p>Purchase view</p>
+
+![Alt text](https://github.com/CptAndy/Database-Related/blob/main/HudsonSoft/vpurchaselog.png?raw=true)
+
+<p>Return view</p>
+
+![Alt text](https://github.com/CptAndy/Database-Related/blob/main/HudsonSoft/vreturnlog.png?raw=true)
 ## NOTES
 -    This was done using MySQL workbench.
