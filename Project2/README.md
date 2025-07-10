@@ -34,5 +34,17 @@ The GUI will include:
 
 The application will connect to an operations log database to maintain a running tally of user queries and updates.
 
+## Screenshots
+Root User - Query input
+![Alt text](https://github.com/CptAndy/Database-Related/blob/main/Project2/rootCommandExample.png?raw=true) 
+Client 1 - Query inputs
+![Alt text](https://github.com/CptAndy/Database-Related/blob/main/Project2/client1Example1-2.png?raw=true) 
+![Alt text](https://github.com/CptAndy/Database-Related/blob/main/Project2/client1Example2-2.png?raw=true) 
+Client 2 - Query inputs
+![Alt text](https://github.com/CptAndy/Database-Related/blob/main/Project2/client2Example1-2.png?raw=true)
+![Alt text](https://github.com/CptAndy/Database-Related/blob/main/Project2/client2Example2-2.png?raw=true)
+Accountant user - Keeping logs of the changes made on the database
+![Alt text](https://github.com/CptAndy/Database-Related/blob/main/Project2/theaccountantExample.png?raw=true)
+
 ## Conclusion
 This project serves as a practical application of Java, JDBC, and MySQL integration, highlighting skills in database management, GUI development, and application security. Through the successful implementation of this project, I have enhanced my understanding of client-server architectures and database interactions.
